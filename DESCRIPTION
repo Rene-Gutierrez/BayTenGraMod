@@ -1,0 +1,21 @@
+Package: BayTenGraMod
+Title: Bayesian Tensor Graphical Model
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Rene",
+           family = "Gutierrez Marquez",
+           role = c("aut", "cre"),
+           email = "rgutie17@ucsc.edu",
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: It has a list of tools that perform a bayesian tensor graphical modeling.
+License: What license it uses
+Encoding: UTF-8
+LazyData: true
+Imports:
+	Matrix  (>= 1.2.18),
+	BDgraph (>= 2.62)
+RoxygenNote: 7.0.2
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
