@@ -8,6 +8,8 @@
 #' @return A matrix that is the k-mode matricization of the tensor provided.
 #'
 #' @author Rene Gutierrez Marquez
+#'
+#' @export
 
 ###############################################################################
 ###

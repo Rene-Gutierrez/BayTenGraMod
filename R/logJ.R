@@ -11,6 +11,8 @@
 #' @return The Logarithm of J.
 #'
 #' @author Rene Gutierrez Marquez
+#'
+#' @export
 
 ###############################################################################
 ###

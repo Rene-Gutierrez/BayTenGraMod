@@ -11,6 +11,8 @@
 #'   the Matrix and Model
 #'
 #' @author Rene Gutierrez Marquez
+#'
+#' @export
 
 ###############################################################################
 ###

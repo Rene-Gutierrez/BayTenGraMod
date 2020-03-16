@@ -42,11 +42,13 @@ TNormalSampler <- function(n         = 1,
   ### Obtains the Cholesky Decomposition of each Covariance Matrix
   L <- list()
   for(i in 1:d){
-    L[[i]] <- t(chol(SigmaList[[i]]))
+    L[[i]] <- Matrix::Matrix(t(chol(SigmaList[[i]])),
+                             sparse = TRUE)
   }
   ### Obtains the Cholesky Factorization of the Kronecker Product
-  kroL <- Matrix::Matrix(data   = mkronecker(L),
-                 sparse = TRUE)
+  ### all but the first dimension
+  kroL <- Matrix::Matrix(data   = mkronecker(L[-1]),
+                         sparse = TRUE)
   ### Generates the samples
   sam <- rnorm(n    = n * prod(p),
                mean = 0,
@@ -54,11 +56,14 @@ TNormalSampler <- function(n         = 1,
   sam <- matrix(data = sam,
                 nrow = prod(p),
                 ncol = n)
-  sam <- kroL %*% sam
   ### Packe the Samples as a list
   samList <- list()
   for(i in 1:n){
-    samList[[i]] <- array(data = sam[,i],
+    samMat <- matrix(data = sam[,i],
+                     nrow = prod(p[-1]),
+                     ncol = p[1])
+    samMat <- kroL %*% samMat %*% Matrix::t(L[[1]])
+    samList[[i]] <- array(data = Matrix::t(samMat),
                           dim  = p)
   }
   ### Checks if it returns a list or an array

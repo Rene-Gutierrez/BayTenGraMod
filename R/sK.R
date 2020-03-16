@@ -15,6 +15,8 @@
 #'   the precision matrix C_k
 #'
 #' @author Rene Gutierrez Marquez
+#'
+#' @export
 
 ###############################################################################
 ###

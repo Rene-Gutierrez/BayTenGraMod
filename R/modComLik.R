@@ -10,6 +10,8 @@
 #' @return A vector with the log-likelihood for each model.
 #'
 #' @author Rene Gutierrez Marquez
+#'
+#' @export
 
 ###############################################################################
 ###

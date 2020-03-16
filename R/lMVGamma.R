@@ -8,6 +8,8 @@
 #' @return The Logarithm of the Multivariate Gamma Function.
 #'
 #' @author Rene Gutierrez Marquez
+#'
+#' @export
 
 ###############################################################################
 ###
