@@ -6,6 +6,7 @@
 
 ### Set-up
 set.seed(240220)
+devtools::load_all(".")
 library(Matrix)
 library(Tlasso)
 
