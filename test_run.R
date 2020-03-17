@@ -10,7 +10,7 @@ library(Matrix)
 library(Tlasso)
 
 ### Parameter Settings
-p <- c(100, 100, 100)    # Matrix size for each dimension
+p <- c(10, 10, 10)    # Matrix size for each dimension
 d <- length(p)           # Number of tensor dimensions
 r <- c(0.10, 0.20, 0.30) # Sparity level
 b <- 103                 # Degrees of Freedom for Precision Matrices
@@ -152,7 +152,7 @@ colnames(sta) <- c("Norm K-F", "Norm K-I", "Avg. Norm F", "Avg. Norm I",
                    "Accuracy", "TPR", "TNR", "Log_Lik", "Time")
 row.names(sta) <- c("TLasso", "TBGGM", "Truth")
 
-filNam <- paste0("res-",p[1],"-",p[2],"-",p[3],"-",r[1],r[2],"-",r[3],".txt")
+filNam <- paste0("./out/res-",p[1],"-",p[2],"-",p[3],"-",r[1],"-",r[2],"-",r[3],".txt")
 
 print(sta)
 
