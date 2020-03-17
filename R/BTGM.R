@@ -103,6 +103,12 @@ BTGM <- function(t,
     samE[[i]] <- array(data = NA,
                        dim  = c(p[i], p[i], nmcmc))
   }
+  ### Progress Bar
+  pb <- txtProgressBar(min     = 0,
+                       max     = 1,
+                       initial = 0,
+                       style   = 3,
+                       width   = 72)
   ### For Every Gibbs Iteration
   for(s in 1:(burnin + nmcmc)){
     ### For every tensor dimension
@@ -132,6 +138,11 @@ BTGM <- function(t,
         samE[[j]][,,s - burnin] <- outCj$E[,,1]
       }
     }
+    ### Progress Bar Display
+    setTxtProgressBar(pb    = pb,
+                      value = s / (burnin + nmcmc))
   }
+  ### Closes the Progress Bar
+  close(pb)
   return(list(samC = samC, samE = samE))
 }
