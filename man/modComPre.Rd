@@ -5,13 +5,16 @@
 \title{Computes Several performance statistics for the Tensor Gaussian Graphical
 Model}
 \usage{
-modComPre(modelList, trueModel)
+modComPre(modelList, trueModel, large = TRUE)
 }
 \arguments{
 \item{modelList}{A list of lists. The outer list is indexed by model. The
 inner list is indexed by Matrix.}
 
-\item{trueModel}{A list with the true Matrices}
+\item{trueModel}{A list with the true Matrices.}
+
+\item{large}{A boolean indicating if the presicion matrices are large,
+to avoid computing the kronacker norm.}
 }
 \value{
 A list with different performance statistics in comparison with the

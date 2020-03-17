@@ -11,7 +11,9 @@
 #'
 #' @param modelList A list of lists. The outer list is indexed by model. The
 #'   inner list is indexed by Matrix.
-#' @param trueModel A list with the true Matrices
+#' @param trueModel A list with the true Matrices.
+#' @param large     A boolean indicating if the presicion matrices are large,
+#'   to avoid computing the kronacker norm.
 #'
 #' @return A list with different performance statistics in comparison with the
 #'   true model.
@@ -33,21 +35,26 @@
 ###
 ###############################################################################
 
-modComPre <- function(modelList, trueModel){
+modComPre <- function(modelList, trueModel, large = TRUE){
   ### Number of Models
   numMod <- length(modelList)
   ### Number of Matrices
   numMat <- length(modelList[[1]])
-  ### Frobenius and Infinity Norm of the Kronecker Product
-  kroFro    <- numeric(length = numMod)
-  kroInf    <- numeric(length = numMod)
-  kroProTru <- mkronecker(trueModel)
-  for(i in 1:numMod){
-    kroProMod <- mkronecker(modelList[[i]])
-    froNor    <- Matrix::norm(kroProMod - kroProTru, "F")
-    infNor    <- Matrix::norm(kroProMod - kroProTru, "I")
-    kroFro[i] <- froNor
-    kroInf[i] <- infNor
+  if(large){
+    kroFro <- rep(x = NA, length = numMod)
+    kroInf <- rep(x = NA, length = numMod)
+  } else {
+    ### Frobenius and Infinity Norm of the Kronecker Product
+    kroFro    <- numeric(length = numMod)
+    kroInf    <- numeric(length = numMod)
+    kroProTru <- mkronecker(trueModel)
+    for(i in 1:numMod){
+      kroProMod <- mkronecker(modelList[[i]])
+      froNor    <- Matrix::norm(kroProMod - kroProTru, "F")
+      infNor    <- Matrix::norm(kroProMod - kroProTru, "I")
+      kroFro[i] <- froNor
+      kroInf[i] <- infNor
+    }
   }
   ### Average Frobenius and Infinity Norm of each Matrix
   sinFro    <- numeric(length = numMod)
