@@ -8,7 +8,6 @@
 set.seed(240220)
 library(Matrix)
 library(Tlasso)
-library(ggplot2)
 
 ### Parameter Settings
 p <- c(100, 100, 100)    # Matrix size for each dimension
@@ -105,23 +104,6 @@ models[[1]] <- CFit
 models[[2]] <- BMFit
 models[[3]] <- O
 
-
-prePlo <- ggplot(data = heatMat(ll         = models,
-                                modelNames = c("TLasso", "TBGGM", "Truth")),
-                 aes(x = x, y = y, fill = value)) +
-  geom_tile() +
-  scale_fill_gradient2(low   = "blue",
-                       high   = "red",
-                       mid    = "white",
-                       limits = c(-1,1)) +
-  facet_grid(rows = vars(matrix),
-             cols = vars(model))
-
-
-print(prePlo)
-
-gc()
-
 print("Computing Precision Statistics")
 preSta <- modComPre(modelList = models,
                     trueModel = models[[3]])
@@ -159,19 +141,6 @@ adjSta <- modComAdj(modelList = models,
                     trueModel = models[[3]])
 
 gc()
-
-adjPlo <- ggplot(data = heatMat(ll         = models,
-                                modelNames = c("TLasso", "TBGGM", "Truth")),
-                 aes(x = x, y = y, fill = value)) +
-  geom_tile() +
-  scale_fill_gradient2(low   = "white",
-                       high   = "blue",
-                       limits = c(0,1)) +
-  facet_grid(rows = vars(matrix),
-             cols = vars(model))
-
-
-print(adjPlo)
 
 timSta <- c(timFre, timBay, 0)
 
