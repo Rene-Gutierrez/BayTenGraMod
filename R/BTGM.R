@@ -24,12 +24,10 @@
 #' @return List containg two other lists. One for the Precison matrices and
 #'   another one for the adjacency matrices.
 #' \describe{
-#'   \item{samC}{A list of a list of Precicion matrices, the first list goes
-#'    through every sample, the nested list goes through every precision
-#'     matrix.}
-#'   \item{samE}{A list of a list of Adjacency matrices, the first list goes
-#'    through every sample, the nested list goes through every adjacency
-#'    matrix.}
+#'   \item{samC}{A list of arrays for Precicion matrices, the list goes through
+#'   every precision matrix.}
+#'   \item{samE}{A list of arrays for Adjacency matrices, the list goes through
+#'   every adjacency matrix.}
 #' }
 #'
 #' @author Rene Gutierrez Marquez
