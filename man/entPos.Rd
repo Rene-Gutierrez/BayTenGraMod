@@ -4,7 +4,7 @@
 \alias{entPos}
 \title{Computes Graphic outputs of the Marginal Posterior of the Precision Matrices}
 \usage{
-entPos(posPre, matNum = 1, i = 1, j = 2)
+entPos(posPre, truth = NULL, matNum = 1, i = 1, j = 2)
 }
 \arguments{
 \item{posPre}{A list of arrays for Precicion matrices, the list goes through

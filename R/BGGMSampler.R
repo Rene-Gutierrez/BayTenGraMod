@@ -13,6 +13,8 @@
 #' @param burnin Number of sample to burn in in the MCMC.
 #' @param nmcmc  Number of MCMC samples desired as output. That is without
 #'   considering the burn-in period.
+#' @param method Either 'E' for Exchange or 'DMH' for Double Metropolis
+#'   Hastings. By default is set to 'DMH'.
 #'
 #' @return List containg two arrays. One for the Precison matrices and another
 #'   one for the adjacency matrices.
@@ -39,7 +41,8 @@
 ###   C:      Initial Partial Covariance Matrix
 ###   beta:   Prior probability for each edge
 ###   burnin: Number of Initial Samples to Burn-In
-###   nmcmc:  NUmber of MCMC samples saved
+###   nmcmc:  Number of MCMC samples saved
+###   method: Either 'E' for Exchange or 'DMH' for Double Metropolis Hastings
 ### Outputs:
 ###   Csample: Samples Partial Covariance Matrices
 ###   Esample: Samples Adjacency Matrices
@@ -53,7 +56,8 @@ BGGMSampler <- function(n,
                         bPrior = 3,
                         DPrior = diag(ncol(C)),
                         burnin = 0,
-                        nmcmc  = 1){
+                        nmcmc  = 1,
+                        method = 'DMH'){
   ### Matrix dimension
   p <- ncol(DPrior)
   ### Posterior Parameters of the G-Wishart
@@ -92,10 +96,19 @@ BGGMSampler <- function(n,
         w <- w + log(1 - beta) - log(beta)
         ### ### Computes the probability of proposing no edge
         ### Samples A New Auxilary C
-        Caux <- BDgraph::rgwish(n   = 1,
-                                adj = E,
-                                b   = bPrior,
-                                D   = DPrior)
+        if(method == 'DMH'){ # By Double Metropolis Hastings Algorithm
+          Caux <- updij(C     = C,
+                        bPost = bPrior,
+                        DPost = DPrior,
+                        i     = i,
+                        j     = j,
+                        proij = TRUE)
+        } else { # By Exchange Algorithm
+          Caux <- BDgraph::rgwish(n   = 1,
+                                  adj = E,
+                                  b   = bPrior,
+                                  D   = DPrior)
+        }
         ### Estimates the log Prior Constant Ratio Using 1 Observation
         ### it always assumes the top part has no edge
         norConRat <- priorConRatio(Caux,

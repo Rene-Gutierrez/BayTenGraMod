@@ -20,6 +20,8 @@
 #' @param burnin Number of sample to burn in in the MCMC.
 #' @param nmcmc  Number of MCMC samples desired as output. That is without
 #'   considering the burn-in period.
+#' @param method Either 'E' for Exchange or 'DMH' for Double Metropolis
+#'   Hastings. By default is set to 'DMH'.
 #'
 #' @return List containg two other lists. One for the Precison matrices and
 #'   another one for the adjacency matrices.
@@ -59,7 +61,8 @@ BTGM <- function(t,
                  C      = NULL,
                  beta   = NULL,
                  burnin = 0,
-                 nmcmc  = 1){
+                 nmcmc  = 1,
+                 method = 'DMH'){
   ### Computes some Global Parameters
   ### Number of Samples
   numSam <- length(t)
