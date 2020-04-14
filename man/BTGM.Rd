@@ -4,7 +4,16 @@
 \alias{BTGM}
 \title{Performs Bayesian Tensor Graphical Model Estimation}
 \usage{
-BTGM(t, b = NULL, D = NULL, C = NULL, beta = NULL, burnin = 0, nmcmc = 1)
+BTGM(
+  t,
+  b = NULL,
+  D = NULL,
+  C = NULL,
+  beta = NULL,
+  burnin = 0,
+  nmcmc = 1,
+  method = "DMH"
+)
 }
 \arguments{
 \item{t}{List of Sample Tensors}
@@ -28,6 +37,9 @@ for every edge matrix.}
 
 \item{nmcmc}{Number of MCMC samples desired as output. That is without
 considering the burn-in period.}
+
+\item{method}{Either 'E' for Exchange or 'DMH' for Double Metropolis
+Hastings. By default is set to 'DMH'.}
 }
 \value{
 List containg two other lists. One for the Precison matrices and

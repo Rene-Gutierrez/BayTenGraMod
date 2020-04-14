@@ -3,6 +3,7 @@
 export(BGGMSampler)
 export(BTGM)
 export(Sk)
+export(TLasso)
 export(TNormalSampler)
 export(datPos)
 export(edgMat)
