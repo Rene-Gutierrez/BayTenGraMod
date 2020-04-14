@@ -12,7 +12,8 @@ BGGMSampler(
   bPrior = 3,
   DPrior = diag(ncol(C)),
   burnin = 0,
-  nmcmc = 1
+  nmcmc = 1,
+  method = "DMH"
 )
 }
 \arguments{
@@ -32,6 +33,9 @@ BGGMSampler(
 
 \item{nmcmc}{Number of MCMC samples desired as output. That is without
 considering the burn-in period.}
+
+\item{method}{Either 'E' for Exchange or 'DMH' for Double Metropolis
+Hastings. By default is set to 'DMH'.}
 }
 \value{
 List containg two arrays. One for the Precison matrices and another
