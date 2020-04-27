@@ -22,8 +22,11 @@ res-10-10-10-0.1-0.2-0.3.txt
 test_run_050.R
 test_run_jerez.R
 test_run_muscat.R
+<<<<<<< HEAD
 perTab.R
 graphics.R
 temp.R
 test_run_mencia.R
 test_run.R
+=======
+>>>>>>> d3c6c6c8ffbfc12844348406671cf2a5c712a4dd
