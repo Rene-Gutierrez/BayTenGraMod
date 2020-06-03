@@ -1,6 +1,6 @@
 #' Computes the Conditional Statistic S_k
 #'
-#' This function computrd the Conditional Statistic S_k for the profile
+#' This function computes the Conditional Statistic S_k for the profile
 #' likelihood of the precision matrix C_k of a Tensor Normal distribution. That
 #' is the quadratic form of the k-mode matricization of the sample tensor with
 #' the Kronecker product of the remaining Presision matrices.

@@ -22,6 +22,12 @@
 #'   considering the burn-in period.
 #' @param method Either 'E' for Exchange or 'DMH' for Double Metropolis
 #'   Hastings. By default is set to 'DMH'.
+#' @param norInd. 2-dimensional index to normalize for Identifiability. The
+#'   first entry indicates the Precision Matrix, while the second entry
+#'   indicates the diagonal element. By default it normilizes the first
+#'   diagonal element of the first precision matrix.
+#' @param progress Boolean indicating the use of the progress bar. By default
+#'   it is set true.
 #'
 #' @return List containg two other lists. One for the Precison matrices and
 #'   another one for the adjacency matrices.
@@ -56,13 +62,15 @@
 ###############################################################################
 
 BTGM <- function(t,
-                 b      = NULL,
-                 D      = NULL,
-                 C      = NULL,
-                 beta   = NULL,
-                 burnin = 0,
-                 nmcmc  = 1,
-                 method = 'DMH'){
+                 b        = NULL,
+                 D        = NULL,
+                 C        = NULL,
+                 beta     = NULL,
+                 burnin   = 0,
+                 nmcmc    = 1,
+                 method   = 'DMH',
+                 norInd   = c(1, 1),
+                 progress = TRUE){
   ### Computes some Global Parameters
   ### Number of Samples
   numSam <- length(t)
@@ -105,11 +113,13 @@ BTGM <- function(t,
                        dim  = c(p[i], p[i], nmcmc))
   }
   ### Progress Bar
-  pb <- txtProgressBar(min     = 0,
-                       max     = 1,
-                       initial = 0,
-                       style   = 3,
-                       width   = 72)
+  if(progress){
+    pb <- txtProgressBar(min     = 0,
+                         max     = 1,
+                         initial = 0,
+                         style   = 3,
+                         width   = 72)
+  }
   ### For Every Gibbs Iteration
   for(s in 1:(burnin + nmcmc)){
     ### For every tensor dimension
@@ -140,10 +150,14 @@ BTGM <- function(t,
       }
     }
     ### Progress Bar Display
-    setTxtProgressBar(pb    = pb,
-                      value = s / (burnin + nmcmc))
+    if(progress){
+      setTxtProgressBar(pb    = pb,
+                        value = s / (burnin + nmcmc))
+    }
   }
   ### Closes the Progress Bar
-  close(pb)
+  if(progress){
+    close(pb)
+  }
   return(list(samC = samC, samE = samE))
 }

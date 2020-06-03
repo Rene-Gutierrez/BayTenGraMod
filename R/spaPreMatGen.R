@@ -13,6 +13,8 @@
 #' It defaults to a random matrix "R".
 #' @param sparsity A vector with the requiered sparsity for the Random Matrix.
 #'   If NULL it defaults to a 10\% sparsity level for each precision matrix.
+#' @param covariance A boolean indicating if the precision matrix should be
+#'   a covariance matrix. By default the function returns a correlation matrix.
 #'
 #' @return A list of lists containing the Presion Matrices, the Covariance
 #'   Matrices and the Adjacency Matrices.Each list is as follows:
@@ -25,9 +27,10 @@
 #'
 #' @export
 
-spaPreMatGen <- function(p        = c(10, 10, 10),
-                         type     = "R",
-                         sparsity = NULL){
+spaPreMatGen <- function(p          = c(10, 10, 10),
+                         type       = "R",
+                         sparsity   = NULL,
+                         covariance = TRUE){
   ### Computes some Global Parameters
   d <- length(p)
   ### Checks defaults
@@ -47,9 +50,16 @@ spaPreMatGen <- function(p        = c(10, 10, 10),
     P <- list()
     S <- list()
     for(i in 1:d){
-      P[[i]] <- Matrix::Matrix(data   = cov2cor(spaPDM(b = b,
-                                                       E = E[[i]])),
-                               sparse = TRUE)
+      if(covariance){
+        P[[i]] <- Matrix::Matrix(data   = spaPDM(b = b,
+                                                 E = E[[i]]),
+                                 sparse = TRUE)
+      } else {
+        P[[i]] <- Matrix::Matrix(data   = cov2cor(spaPDM(b = b,
+                                                         E = E[[i]])),
+                                 sparse = TRUE)
+      }
+
       S[[i]] <- Matrix::Matrix(data   = solve(P[[i]]),
                                sparse = TRUE)
     }
