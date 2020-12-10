@@ -27,6 +27,8 @@
 ###############################################################################
 
 logLikTNorm <- function(tensors, precisions){
+  ### Gets the number of Elements
+  n <- length(tensors)
   ### Gets the Number of Dimensions of the Tensor
   d <- length(precisions)
   ### Gets the Size of each Matrix
@@ -34,7 +36,7 @@ logLikTNorm <- function(tensors, precisions){
   for(i in 1:d){
     p <- c(p, ncol(precisions[[i]]))
   }
-  ### Computes the conditional Suffiecent Statistic Sk, for Precision Matrix k,
+  ### Computes the conditional Sufficient Statistic Sk, for Precision Matrix k,
   ### where k is the Precision matrix of highest dimension
   ### ### Finds the precision matrix of highest dimension
   k <- which.max(p)
